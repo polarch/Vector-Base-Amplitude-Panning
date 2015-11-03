@@ -24,22 +24,29 @@ The library contains the following main functions:
   
   findLsPairs:    find sorted loudspeaker pairs from loudspeaker
                   directions (for 2D layouts)
+                  
   findLSTriplets: find valid loudspeaker triangles from loudspeaker
                   directions (for 3D layouts)
+                  
   invertLsMtx:    precompute inversion of matrix of loudspeaker triplets 
                   or pairs, for use in VBAP
+                  
   getSpreadSrcDirs:   get auxiliary source directions around panning 
                       direction, for source spreading and MDAP
+                      
   vbap:   Return VBAP panning gains for multiple panning directions, with
           spread control if needed
 
 Additionaly:
 
   plotTriangulation:  Plots the loudspeaker triangulated mesh
+  
   getGainTable:   Construct a look-up VBAP gain table of VBAP for a 
                   specified regular grid
+                  
   vbip:   Similar to VBAP, but implementing its energy-based variant 
           (see [ref.4])
+          
   getPValueResponse:  Returns VBAP frequency-dependent normalization
                       values, for approximate flat perceived response of
                       a panned source in dry playback environments 
