@@ -1,5 +1,11 @@
-# Vector-Base-Amplitude-Panning
-A compact library implementing the Vector Base Amplitude Panning (VBAP) method and variants for sound spatialization.
+# Vector Base Amplitude Panning Library
+#### A compact library implementing the Vector Base Amplitude Panning (VBAP) method and variants for sound spatialization.
+
+---
+>    Archontis Politis & Ville Pulkki, 2015  
+>    Department of Signal Processing and Acoustics, Aalto University, Finland  
+>    archontis.politis@aalto.fi
+---
 
 This is a compact Matlab/Octave library implementing vector-base amplitude
 panning (VBAP) [ref.1], VBAP-base spreading of a panned source [ref.2&3], 
@@ -22,60 +28,43 @@ and the code itself.
 
 The library contains the following main functions:
   
-  findLsPairs:    find sorted loudspeaker pairs from loudspeaker
-                  directions (for 2D layouts)
-                  
-  findLSTriplets: find valid loudspeaker triangles from loudspeaker
-                  directions (for 3D layouts)
-                  
-  invertLsMtx:    precompute inversion of matrix of loudspeaker triplets 
-                  or pairs, for use in VBAP
-                  
-  getSpreadSrcDirs:   get auxiliary source directions around panning 
-                      direction, for source spreading and MDAP
-                      
-  vbap:   Return VBAP panning gains for multiple panning directions, with
-          spread control if needed
+* findLsPairs:    find sorted loudspeaker pairs from loudspeaker directions (for 2D layouts)
+* findLSTriplets: find valid loudspeaker triangles from loudspeaker directions (for 3D layouts)
+* invertLsMtx:    precompute inversion of matrix of loudspeaker triplets or pairs, for use in VBAP
+* getSpreadSrcDirs:   get auxiliary source directions around panning direction, for source spreading and MDAP
+* vbap:   Return VBAP panning gains for multiple panning directions, with spread control if needed
 
 Additionaly:
 
-  plotTriangulation:  Plots the loudspeaker triangulated mesh
-  
-  getGainTable:   Construct a look-up VBAP gain table of VBAP for a 
-                  specified regular grid
-                  
-  vbip:   Similar to VBAP, but implementing its energy-based variant 
-          (see [ref.4])
-          
-  getPValueResponse:  Returns VBAP frequency-dependent normalization
-                      values, for approximate flat perceived response of
-                      a panned source in dry playback environments 
-                      (see [ref.7])
+* plotTriangulation:  Plots the loudspeaker triangulated mesh
+* getGainTable:   Construct a look-up VBAP gain table of VBAP for a specified regular grid
+* vbip:   Similar to VBAP, but implementing its energy-based variant (see [ref.4])
+* getPValueResponse:  Returns VBAP frequency-dependent normalization values, for approximate flat perceived response of a panned source in dry playback environments (see [ref.7])
 
 For any questions, comments, corrections, or general feedback, please
 contact archontis.politis@aalto.fi
 
-# References
+## References
 
-[1] Pulkki, V. (1997). Virtual Sound Source Positioning Using Vector Base Amplitude Panning. 
+    [1] Pulkki, V. (1997). Virtual Sound Source Positioning Using Vector Base Amplitude Panning. 
     Journal of the Audio Engineering Society, 45(6), 456-466.
 
-[2] Pulkki, V. (2000). Generic panning tools for MAX/MSP.
+    [2] Pulkki, V. (2000). Generic panning tools for MAX/MSP.
     International Computer Music Conference (ICMC), Berlin, Germany
 
-[3] Pulkki, V. (1999). Uniform Spreading of Amplitude Panned Sources. 
+    [3] Pulkki, V. (1999). Uniform Spreading of Amplitude Panned Sources. 
     IEEE Workshop on Applications of Signal Processing to Audio and Acoustics (WASPAA), New Paltz, NY, USA
 
-[4] Jot, J.-M., Larcher V., Pernaux, J.-M. (1999). A comparative study of 3-D audio encoding and rendering techniques.
+    [4] Jot, J.-M., Larcher V., Pernaux, J.-M. (1999). A comparative study of 3-D audio encoding and rendering techniques.
     16th International Conference of the AES, Rovaniemi, Finland
 
-[5] Zotter, F., Frank, M. (2012). All-Round Ambisonic Panning and Decoding. 
+    [5] Zotter, F., Frank, M. (2012). All-Round Ambisonic Panning and Decoding. 
     Journal of the Audio Engineering Society, 60(10), 807-820.
 
-[6] Epain, N., Jin, C.T., Zotter, F. (2014). Ambisonic Decoding With Constant Angular Spread.
+    [6] Epain, N., Jin, C.T., Zotter, F. (2014). Ambisonic Decoding With Constant Angular Spread.
     Acta Acustica united with Acustica, 100(May), 928-936.
 
-[7] Laitinen, M., Vilkamo, J., Jussila, K., Politis, A., Pulkki, V. (2014). 
+    [7] Laitinen, M., Vilkamo, J., Jussila, K., Politis, A., Pulkki, V. (2014). 
     Gain normalization in amplitude panning as a function of frequency and room reverberance. 
     55th International Conference of the AES. Helsinki, Finland.
 
