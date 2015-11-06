@@ -1,6 +1,24 @@
 function layoutInvMtx = invertLsMtx(ls_dirs, ls_groups)
-%INVERTTRIANGLEMTX Summary of this function goes here
-%   Detailed explanation goes here
+%LAYOUTINVMTX Precompute inversion of matrix of loudspeaker triplets/pairs
+%
+%   INPUTS:
+%
+%   ls_dirs: vector of loudspeaker directions in degrees, for 2D, or 
+%       (Nspeakers x 2) matrix of loudspeaker directions in degrees for 3D
+%   ls_groups: valid pairs (for 2D) or triplets (for 3D triplets) returned
+%       by findLsPairs() or findLsTriplets()
+%
+%   OUTPUTS:
+%
+%   layoutInvMtx: [Ngroups x dim^2] matrix of inversions, each row
+%       contains the entries of a single inverse matrix. 
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%   Archontis Politis, 1/11/2015
+%   archontis.politis@aalto.fi
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Dimensionality, 2d or 3d VBAP
 if size(ls_groups, 2) == 2

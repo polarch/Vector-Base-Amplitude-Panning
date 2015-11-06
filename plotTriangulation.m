@@ -1,12 +1,28 @@
-function plotTriangulation(mesh)
-%PLOTTRIANGULATION Summary of this function goes here
-%   Detailed explanation goes here
+function plotTriangulation(mesh, h_ax)
+%PLOTTRIANGULATION Plots a triangulated mesh
+%
+%   INPUTS:
+%
+%   mesh: mesh structure containing 'vertices' and 'faces' fields in
+%       standard Matlab syntax
+%   h_ax: axes handle to plot on (e.g. for subplots), gca is the default
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%   Archontis Politis, 1/11/2015
+%   archontis.politis@aalto.fi
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+if nargin<2
+    h_ax = gca;
+end
+
 Nvert = size(mesh.vert,1);
 
 patch('vertices', mesh.vert, 'faces', mesh.faces, 'facecolor','g', 'FaceAlpha',0.9);
 axis equal
 % number vertices
-clear temps
 for i = 1:Nvert
     temps(i,:) = sprintf('%2i', i);
 end
@@ -16,7 +32,7 @@ line([0;1.5], [0;0], [0;0],'color','r')
 line([0;0], [0;1.5], [0;0],'color','g')
 line([0;0], [0;0], [0;1.5],'color','b')
 set(gca,'visible','off')
-set(findall(gca, 'type', 'text'), 'visible', 'on')
+set(findall(h_ax, 'type', 'text'), 'visible', 'on')
 
 end
 

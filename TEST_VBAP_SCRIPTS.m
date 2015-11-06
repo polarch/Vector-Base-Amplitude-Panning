@@ -1,5 +1,15 @@
 %% VECTOR-BASE AMPLITUDE PANNING LIBRARY
+
+%% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
+%   Archontis Politis, 2015
+%   Department of Signal Processing and Acoustics, Aalto University, Finland
+%   archontis.politis@aalto.fi
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%
 % This is a compact Matlab/Octave library implementing vector-base amplitude
 % panning (VBAP) [ref.1], VBAP-base spreading of a panned source [ref.2&3], 
 % and Multiple-direction amplitude panning (MDAP) [ref.3]. A function 
@@ -74,12 +84,13 @@ large_tri_aperture = 100; % largest allowed triangle side in degrees
 figure
 subplot(121)
 plotTriangulation(ls_full)
-title('full'), set(findall(gca, 'type', 'text'), 'visible', 'on') % make title visible
+title('full'), set(findall(gca, 'type', 'text'), 'visible', 'on', 'fontsize',16) % make title visible
 view(60,-20), zoom(2)
 subplot(122)
 plotTriangulation(ls_full_omit)
-title(['full' char(10) 'with large triangles discarded']), set(findall(gca, 'type', 'text'), 'visible', 'on')
+title(['full' char(10) 'with large triangles discarded']), set(findall(gca, 'type', 'text'), 'visible', 'on', 'fontsize',16)
 view(60,-20), zoom(2)
+h = gcf; h.Position(3:4) = 2*h.Position(3:4);
 
 %%
 % PARTIAL SETUP OF LOUDSPEAKERS
@@ -103,12 +114,13 @@ ls_part_invalid.faces = convhulln(ls_part_invalid.vert);
 figure
 subplot(121)
 plotTriangulation(ls_part_invalid)
-title('partial - including invalid triangles'), set(findall(gca, 'type', 'text'), 'visible', 'on')
-view(3), zoom(2)
+title('partial - including invalid triangles'), set(findall(gca, 'type', 'text'), 'visible', 'on', 'fontsize',16)
+view(3), zoom(1.5)
 subplot(122)
 plotTriangulation(ls_part_valid)
-title('partial - after omitting invalid triangles'), set(findall(gca, 'type', 'text'), 'visible', 'on')
-view(3), zoom(2)
+title('partial - after omitting invalid triangles'), set(findall(gca, 'type', 'text'), 'visible', 'on', 'fontsize',16)
+view(3), zoom(1.5)
+h = gcf; h.Position(3:4) = 1.5*h.Position(3:4);
 
 %% EXAMPLE 2: VBAP Gains
 % The steps to obtaining the VBAP gains for a set of directions are:
@@ -161,8 +173,9 @@ for nl = 1:ls_num
     surf(gains_grid_nl.*X,gains_grid_nl.*Y,gains_grid_nl.*Z,gains_grid_nl);
 end
 axis([-1 1 -1 1 -0.5 1]), axis equal
-colorbar, view(50,30), zoom(2)
+colorbar, view(50,30), zoom(2), grid
 title('11.0 VBAP gains')
+h = gcf; h.Position(3:4) = 1.5*h.Position(3:4);
 
 %% EXAMPLE 3: Spreading by amplitude panning
 % Spreading of sources by means of amplitude panning has two useful
@@ -196,7 +209,7 @@ plot(U_circle(:,1), U_circle(:,2), 'k')
 hold on
 plot(U_spread1(:,1), U_spread1(:,2), 'ro') % spread source 1
 plot(U_spread2(:,1), U_spread2(:,2), 'bo') % spread source 2
-axis equal
+axis equal, title('2D spread sources')
 
 %%
 
@@ -218,7 +231,8 @@ hold on
 plot3(U_spread1(:,1), U_spread1(:,2), U_spread1(:,3), 'ro') % spread source 1
 plot3(U_spread2(:,1), U_spread2(:,2), U_spread2(:,3), 'bo') % spread source 2
 plot3(U_spread3(:,1), U_spread3(:,2), U_spread3(:,3), 'mo') % spread source 3
-axis equal
+view(36,15), axis equal, title('3D spread sources')
+h = gcf; h.Position(3:4) = 1.5*h.Position(3:4);
 
 %%
 
@@ -239,6 +253,7 @@ title('VBAP - no spreading')
 subplot(122)
 polar(src_dirs2D*ones(1,5)*pi/180, gains_spread)
 title('MDAP - 45deg spreading')
+h = gcf; h.Position(3) = 2*h.Position(3);
 
 %% EXAMPLE 4: Gain Tables
 % For some applications it may be advantageous to precalculate a gain table of
@@ -284,7 +299,7 @@ ls_dirs = [0  45 90  135 180 -135 -90 -45 0;    % define an octagon with a top
 ls_num = size(ls_dirs,1);
 
 % define signal
-sig = sin(2*pi*500*(1:3*fs)/fs)'; % 3sec of 500Hz sinewave as example
+sig = sin(2*pi*250*(1:3*fs)/fs)'; % 3sec of 250Hz sinewave as example
 Lsig = length(sig);
 Nhop = ceil(Lsig/hopsize) + 2;
 padsig = [zeros(hopsize,1); sig; zeros(Nhop*hopsize - Lsig - hopsize,1)]; % zero padding
@@ -317,6 +332,7 @@ pansig = pansig(hopsize+(1:Lsig),:);
 % plot original signal and panned front and front-left channel, half rotation only
 figure, plot(1:Lsig/3, sig(1:Lsig/3), 1:Lsig/3, pansig(1:Lsig/3,1), '--m', 1:Lsig/3, pansig(1:Lsig/3,2), '--y');
 legend('original','panned - front', 'panned - left-front'), xlabel('samples'), ylabel('amplitude')
+h = gcf; h.Position(3) = 2*h.Position(3);
 
 % write audio output to file
 audiowrite('panning_example.wav', pansig, fs)
@@ -369,6 +385,7 @@ h_filt = fftshift(ifft([H_filt; H_filt(end-1:-1:2,:)]),1);
 figure
 subplot(121), semilogx(f, pValue), grid, axis([100 2e4 1 2]), title(['p-value for DTT=' num2str(DTT)])
 subplot(122), semilogx(f, H_filt(:,1)), grid, axis([100 2e4 0 1]), title('|H_{vbap}| for left speaker')
+h = gcf; h.Position(3) = 2*h.Position(3);
 
 %%
 % Note that the experimental curves of [ref.7] are derived for listening

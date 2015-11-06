@@ -1,6 +1,27 @@
 function [ls_groups, mesh] = findLsTriplets(ls_dirs, OMIT_LARGE_TRI, aperture_lim)
-%TRIANGULATESETUP Summary of this function goes here
-%   Detailed explanation goes here
+%FINDLSTRIPLETS Returns valid loudspeaker triplets for 3D layouts
+%
+%   INPUTS:
+%
+%   ls_dirs: (Nspeakers x 2) matrix of loudspeaker directions in degrees, 
+%       in azimuth elevation convention
+%   OMIT_LARGE_TRI: {0,1} False to return all triplets, true to keep only
+%       ones that their larger side has a span less than a limit set in 
+%       aperture_lim. If not set, all valid triplets are returned.
+%   aperture_lim: span limit in degrees above which respective triplets are
+%       omitted
+%
+%   OUTPUTS:
+%
+%   ls_groups: (Ntriplets x 3) matrix. Each row has the speaker indices
+%       corresponding to a valid triplet.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%   Archontis Politis, 1/11/2015
+%   archontis.politis@aalto.fi
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 if nargin<2 || isempty(OMIT_LARGE_TRI)
     OMIT_LARGE_TRI = 0;
@@ -25,8 +46,8 @@ ls_groups = mesh.faces;
 end
 
 function mesh = keepValidTriangles(mesh)
-%KEEPVALIDFACES Summary of this function goes here
-%   Detailed explanation goes here
+%KEEPVALIDFACES Omit triplets that their normals and the centroid to the 
+% triplets have angle larger than pi/2
 
 valid_faces = [];
 
@@ -43,8 +64,8 @@ end
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function mesh = omitLargeTriangles(mesh, aperture_lim)
-%OMITLARGETRIANGLES Summary of this function goes here
-%   Detailed explanation goes here
+%OMITLARGETRIANGLES Omit triplets that any of their sides have span larger
+% than aperture_lim
 
     valid_faces = [];
     for nf=1:size(mesh.faces,1)
@@ -63,13 +84,6 @@ end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function faces = sphDelaunayTriangulation(dirs_rad)
 %DELAUNAYTRIANGULATION Computes the Delaunay triangulation on the unit sphere
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%
-% SPHDELAUNAYTRIANGULATION.M - 15/7/2011
-% Archontis Politis, archontis.politis@aalto.fi
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Convert to cartesian
 N_vert = size(dirs_rad, 1);

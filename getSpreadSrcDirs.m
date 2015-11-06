@@ -1,6 +1,26 @@
 function U_spread = getSpreadSrcDirs(src_dir, spread, num_src, num_rings_3d)
-%GENERATESPREADSRCDIRS Summary of this function goes here
-%   Detailed explanation goes here
+%GENERATESPREADSRCDIRS Generate virtual sources for VBAP spreading and MDAP
+%
+%   INPUTS:
+%
+%   src_dir: panning direction in degrees, [azi] for 2D, [azi elev] for 3D
+%   spread: spread angle in degrees defining the extent of the panned source
+%   num_src: number of auxiliary sources to use for spreading, default is 8
+%   num_rings_3d: number of concentric rings of num_src each to generate
+%       inside the spreading surface, default is 1 (valid only for 3D
+%       spreading)
+%
+%   OUTPUTS:
+%
+%   U_spread: [num_src+1 x 3] matrix of unit vectors pointing to the spread
+%       directions, with the last one being the actual panning direction
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%   Archontis Politis & Ville Pulkki 1/11/2015
+%   archontis.politis@aalto.fi
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % layout dimension
 dim = length(src_dir)+1;

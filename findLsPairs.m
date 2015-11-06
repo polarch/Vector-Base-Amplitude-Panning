@@ -1,6 +1,26 @@
 function ls_groups = findLsPairs(ls_dirs, OMIT_LARGE_PAIR, aperture_lim)
-%PAIRLAYOUT2D Summary of this function goes here
-%   Detailed explanation goes here
+%FINDLSPAIRS Returns the adjacent loudspeaker pairs for 2D layouts
+%
+%   INPUTS:
+%
+%   ls_dirs: vector of loudspeaker directions in degrees
+%   OMIT_LARGE_PAIR: {0,1} False to return all pairs, true to keep only
+%       ones that have spans less than a limit set in aperture_lim. If not set,
+%       all pairs are returned.
+%   aperture_lim: limit in degrees above which the respective pairs are
+%       omitted
+%
+%   OUTPUTS:
+%
+%   ls_groups: (Npairs x 2) matrix. Each row has the speaker indices
+%       corresponding to an adjacent pair.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%   Archontis Politis, 1/11/2015
+%   archontis.politis@aalto.fi
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 if nargin<2 || isempty(OMIT_LARGE_PAIR)
     OMIT_LARGE_PAIR = 0;

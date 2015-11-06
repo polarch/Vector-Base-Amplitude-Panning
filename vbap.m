@@ -1,6 +1,27 @@
 function GainMtx = vbap(src_dirs, ls_groups, ls_invMtx, spread)
-%VBAP Summary of this function goes here
-%   Detailed explanation goes here
+%VBAP Computes vector-base amplitude panning gains for a set of directions
+%
+%   INPUTS:
+%
+%   src_dirs: panning direction in degrees, vector for 2D, [Nsrc x 2] matrix 
+%       for 3D, in [azi elev] convention
+%   ls_groups: valid pairs (for 2D) or triplets (for 3D triplets) returned
+%       by findLsPairs() or findLsTriplets()
+%   ls_InvMtx: matrix of loudspeaker inversions returned by invertLsMtx()
+%   spread: value of spread in degrees of the panning gains for MDAP
+%       Additional spreading parameters like number of spread sources and
+%       rings can be enabled easily, see this code and getSpreadSrcDirs()
+%
+%   OUTPUTS:
+%
+%   GainMtx: (Nsrc x Nspeaker) VBAP/MDAP gain matrix.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%   Ville Pulkki & Archontis Politis, 1/11/2015
+%   archontis.politis@aalto.fi
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 if nargin<4
     spread = 0;
@@ -47,8 +68,7 @@ if spread
             if min(g_tmp) > -0.001
                 g_ns(ls_groups(i,:)) = g_tmp/sqrt(sum(g_tmp.^2));
             end
-        end
-%        g_ns = g_ns./norm(g_ns);      
+        end     
         gains = gains + g_ns;
     end 
 else

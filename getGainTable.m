@@ -1,13 +1,24 @@
 function gtable = getGainTable(ls_dirs, ang_res, spread)
-%GTABLE Computes a 2D/3D gain table using VBAP
+%GTABLE Computes a 2D/3D gain table using VBAP/MDAP
 %
-% ang_res is the angular resolution of the table in degrees, it should be a
-% scalar for 2d VBAP, or a vector [azi_res elev_res] for 3d VBAP.
+%   INPUTS:
+%
+%   ls_dirs: vector of loudspeaker directions in degrees, for 2D, or 
+%       (Nspeakers x 2) matrix of loudspeaker directions in degrees for 3D
+%   ang_res: the angular resolution of the table in degrees, it should be a
+%       scalar for 2d VBAP, or a vector [azi_res elev_res] for 3d VBAP.
+%   spread: value of spread in degrees of the panning gains for MDAP
+%
+%   OUTPUTS:
+%
+%   gtable: (Ndirs x Nspeaker) gain matrix. For the indexing and how to 
+%       access the gains for a certain direction, check the code and the
+%       examples in the included scripts.
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-% VBAPGTABLE.M - 15/7/2011
-% Archontis Politis, archontis.politis@aalto.fi
+%   Archontis Politis, 1/11/2015
+%   archontis.politis@aalto.fi
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
