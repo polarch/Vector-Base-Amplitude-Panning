@@ -1,5 +1,5 @@
-function gtable = getGainTable(ls_dirs, ang_res, spread)
-%GTABLE Computes a 2D/3D gain table using VBAP/MDAP
+function [gtable, src_dirs] = getGainTable(ls_dirs, ang_res, spread, method)
+%GTABLE Computes a 2D/3D gain table using VBAP/MDAP or VBIP
 %
 %   INPUTS:
 %
@@ -8,12 +8,16 @@ function gtable = getGainTable(ls_dirs, ang_res, spread)
 %   ang_res: the angular resolution of the table in degrees, it should be a
 %       scalar for 2d VBAP, or a vector [azi_res elev_res] for 3d VBAP.
 %   spread: value of spread in degrees of the panning gains for MDAP
+%   method: 'vbap' for amplitude panning, or 'vbip' for its energy variant.
+%       Default is 'vbap', if not defined.
 %
 %   OUTPUTS:
 %
 %   gtable: (Ndirs x Nspeaker) gain matrix. For the indexing and how to 
 %       access the gains for a certain direction, check the code and the
 %       examples in the included scripts.
+%   src_dirs: optional output returning the direction of each entry in the
+%       table
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
@@ -22,7 +26,8 @@ function gtable = getGainTable(ls_dirs, ang_res, spread)
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-    if nargin<3, spread = 0; end
+    if nargin<3, spread = 0; method = 'vbap';
+    elseif nargin<4, method = 'vbap'; end
 
     % convert to column vector if not already, to prepare for vbap function
     if size(ls_dirs, 2) > size(ls_dirs, 1)
@@ -50,11 +55,8 @@ function gtable = getGainTable(ls_dirs, ang_res, spread)
         az_res = ang_res(1)*pi/180;
         src_dirs = (-pi:az_res:pi)';
 
-        % find the loudspeaker pairs and invert
+        % find the loudspeaker pairs
         ls_groups = findLsPairs(ls_dirs);
-        layoutInvMtx = invertLsMtx(ls_dirs, ls_groups);
-        % compute vbap gains
-        gtable = vbap(src_dirs, ls_groups, layoutInvMtx, spread);
         
     elseif dim == 3;
 
@@ -79,11 +81,19 @@ function gtable = getGainTable(ls_dirs, ang_res, spread)
             src_dirs(tempIdx + (1:N_azi), 2) = ele(n);
         end
 
-        % find the loudspeaker triangles and invert
+        % find the loudspeaker triangles
         ls_groups = findLsTriplets(ls_dirs);
-        layoutInvMtx = invertLsMtx(ls_dirs, ls_groups);        
-        % compute vbap gains
-        gtable = vbap(src_dirs, ls_groups, layoutInvMtx, spread);
+    end
+    
+    % invert matrices
+    layoutInvMtx = invertLsMtx(ls_dirs, ls_groups);
+    switch method
+        case 'vbap'
+            % compute vbap gains
+            gtable = vbap(src_dirs, ls_groups, layoutInvMtx, spread);
+        case 'vbip'
+            % compute vbap gains
+            gtable = vbip(src_dirs, ls_groups, layoutInvMtx, spread);
     end
     
 end

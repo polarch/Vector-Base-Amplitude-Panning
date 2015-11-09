@@ -142,6 +142,7 @@ else
     end
 end
 energies = energies/sum(energies);
+energies(energies<0) = 0;
 gains = sqrt(energies);
 
 end

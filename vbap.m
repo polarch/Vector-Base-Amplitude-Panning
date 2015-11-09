@@ -10,7 +10,7 @@ function GainMtx = vbap(src_dirs, ls_groups, ls_invMtx, spread)
 %   ls_InvMtx: matrix of loudspeaker inversions returned by invertLsMtx()
 %   spread: value of spread in degrees of the panning gains for MDAP
 %       Additional spreading parameters like number of spread sources and
-%       rings can be enabled easily, see this code and getSpreadSrcDirs()
+%       rings can be enabled easily, see vbip() and getSpreadSrcDirs()
 %
 %   OUTPUTS:
 %
