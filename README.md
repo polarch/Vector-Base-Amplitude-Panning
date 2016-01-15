@@ -22,8 +22,8 @@ such as triangulation of a 3D loudspeaker setup into loudspeaker triplets,
 spreading of a panned source, construction of panning gain
 tables, and panning a moving source in a real-time block processing context.
 
-For a demonstration of the various function, go through the TEST_VBAP_SCRIPTS.m
-script. For more detailed information, check the help output of the functions 
+For a demonstration of the various function, see [http://research.spa.aalto.fi/projects/vbap-lib/vbap.html],
+or go through the TEST_VBAP_SCRIPTS.m script. For more detailed information, check the help output of the functions 
 and the code itself.
 
 The library contains the following main functions:
