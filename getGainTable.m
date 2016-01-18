@@ -52,8 +52,8 @@ function [gtable, src_dirs] = getGainTable(ls_dirs, ang_res, spread, method)
             ang_res = 1; % default resolution for the gain table of 1 deg.
         end
         
-        az_res = ang_res(1)*pi/180;
-        src_dirs = (-pi:az_res:pi)';
+        az_res = ang_res(1);
+        src_dirs = (-180:az_res:180)';
 
         % find the loudspeaker pairs
         ls_groups = findLsPairs(ls_dirs);
