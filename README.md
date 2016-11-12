@@ -2,10 +2,21 @@
 #### A compact library implementing the Vector Base Amplitude Panning (VBAP) method and variants for sound spatialization.
 
 ---
->    Archontis Politis & Ville Pulkki, 2015  
+>
+>    Archontis Politis, 2015  
+>
 >    Department of Signal Processing and Acoustics, Aalto University, Finland  
+>
 >    archontis.politis@aalto.fi
+>
 ---
+
+This Matlab/Octave library was developed during my doctoral research in the [Communication Acoustics Research Group] (http://spa.aalto.fi/en/research/research_groups/communication_acoustics/), Aalto University, Finland. If you would like to reference the code, you can refer to my dissertation published [here](https://aaltodoc.aalto.fi/handle/123456789/22499):
+
+    Archontis Politis, Microphone array processing for parametric spatial audio techniques, 2016
+    Doctoral Dissertation, Department of Signal Processing and Acoustics, Aalto University, Finland
+    
+## Description
 
 This is a compact Matlab/Octave library implementing vector-base amplitude
 panning (VBAP) [ref.1], VBAP-base spreading of a panned source [ref.2&3], 
