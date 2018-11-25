@@ -24,7 +24,7 @@ patch('vertices', mesh.vert, 'faces', mesh.faces, 'facecolor','g', 'FaceAlpha',0
 axis equal
 % number vertices
 for i = 1:Nvert
-    temps(i,:) = sprintf('%2i', i);
+    temps(i,:) = sprintf('%3i', i);
 end
 text(mesh.vert(:,1), mesh.vert(:,2), mesh.vert(:,3), temps, 'FontSize', 12, 'FontWeight', 'bold');
 % indicate cartesian axes
