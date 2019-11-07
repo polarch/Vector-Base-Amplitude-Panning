@@ -58,7 +58,7 @@ function [gtable, src_dirs] = getGainTable(ls_dirs, ang_res, spread, method)
         % find the loudspeaker pairs
         ls_groups = findLsPairs(ls_dirs);
         
-    elseif dim == 3;
+    elseif dim == 3
 
         % Compute directions of the evaluation grid
         if (nargin < 2) || isempty(ang_res)
